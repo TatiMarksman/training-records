@@ -5,16 +5,20 @@ import StepList from './StepList';
 function App() {
   const [records, setRecords] = useState([]);
 
-  const handleAdd = (date, steps) => {
+  const handleAdd = (date, kilometers, steps) => {
     setRecords(prev => {
       const existing = prev.find(r => r.date === date);
       if (existing) {
         // aynı tarihe ekleme
         return prev.map(r => 
-          r.date === date ? { ...r, steps: r.steps + steps } : r
+          r.date === date ? { 
+            ...r, 
+            kilometers: r.kilometers + kilometers,
+            steps: r.steps + steps 
+          } : r
         ).sort((a, b) => new Date(b.date) - new Date(a.date));
       } else {
-        return [...prev, { date, steps }]
+        return [...prev, { date, kilometers, steps }]
           .sort((a, b) => new Date(b.date) - new Date(a.date));
       }
     });
